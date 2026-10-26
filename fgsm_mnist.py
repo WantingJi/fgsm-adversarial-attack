@@ -3,6 +3,8 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torchvision import datasets, transforms
 
+torch.manual_seed(1)
+
 # 一个简单的 MNIST 分类器
 class SimpleNet(nn.Module):
     def __init__(self):
@@ -17,7 +19,7 @@ class SimpleNet(nn.Module):
 
 
 # 加载 MNIST 数据集
-test_loader = torch.utils.data.DataLoader(datasets.MNIST('./datasets', train = False, download=True, 
+test_loader = torch.utils.data.DataLoader(datasets.MNIST('./datasets/MNIST', train = False, download=True,
                                                          transform=transforms.ToTensor()),
                                             batch_size = 1, shuffle=True)
 device = torch.device("cpu")
@@ -25,7 +27,7 @@ model = SimpleNet().to(device)
 
 # 快速简单训练
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
-train_loader = torch.utils.data.DataLoader(datasets.MNIST('./datasets', train=True, download=True, 
+train_loader = torch.utils.data.DataLoader(datasets.MNIST('./datasets/MNIST', train=True, download=True,
                                                          transform=transforms.ToTensor()),
                                             batch_size=64, shuffle=True)
 
